@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'forum/main.css' %}">
+	
+	<!-- Google font -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600family=Teko:wght@600&display=swap">
+
+	<!-- Social Media Buttons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	{% if title %}
+	<title>YorkU Forum- {{ title }} </title>
+	{% else %}
+	<title>YorkU Forum</title>
+	{% endif %}
+</head>
+
+<body>
+	<header class="site-header">
+	  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+	    <div class="container">
+	    <img class="rounded-circle article-img-logo" src="../media/yorku-logo-small.png">
+	      <a class="navbar-brand mr-4" href="/"> York University Forum </a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarToggle">
+	        <div class="navbar-nav mr-auto">
+	          <a class="nav-item nav-link" href="{% url 'forum-home' %}"> Home </a>
+	        </div>
+	        <!-- Navbar Right Side -->
+	        <div class="navbar-nav"> 
+
+	          {% if user.is_authenticated %}
+	          	  <a class="nav-item nav-link" href="{% url 'post-create' %}"> New Post </a>
+		          <a class="nav-item nav-link" href="{% url 'user_profile' %}"> Profile </a>
+		          <a class="nav-item nav-link" href="{% url 'logout' %}"> logout </a>
+	          {% else %}
+		          <a class="nav-item nav-link" href="{% url 'login' %}"> Login </a>
+		          <a class="nav-item nav-link" href="{% url 'signup' %}"> Sign Up </a>
+	          {% endif %}
+	        </div>
+	      </div>
+	    </div>
+	  </nav>
+	</header>	
+
+	<main role="main" class="container">
+	  <div class="row">
+	    <div class="col-md-8">
+	    	{% if messages %}
+	    		{% for message in messages %}
+	    			<div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+	    		{% endfor %}
+	    	{% endif %}
+	      {% block content %}{% endblock %}
+	    </div>
+
+	    <div class="col-md-4">
+          <div class="content-section">
+            <h5 style="text-align: center;"> Helpful Links </h5>
+              <ul class="list-group nav-helpful-link">
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://www.yorku.ca/index.html" style="color: #ffffff;">YorkU Home Website</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://w2prod.sis.yorku.ca/Apps/WebObjects/cdm" style="color: #ffffff;">YorkU Courses Website</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://moodle.info.yorku.ca/" style="color: #ffffff;">YorkU Moodle</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://registrar.yorku.ca/enrol/guide/vsb" style="color: #ffffff;">Visual Schedule Builder</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://registrar.yorku.ca/enrol/visiting/enrolment" style="color: #ffffff;">R.E.M.</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://myacademicrecord.students.yorku.ca/degree-progress-report" style="color: #ffffff;">Degree Progress Report</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://myonlineservices.students.yorku.ca/" style="color: #ffffff;">My Online Services</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://laps.yorku.ca/student-resources/gpa-calculator/" style="color: #ffffff;">GPA Calculator</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://apps4.sis.yorku.ca/Apps/WebObjects/AAS.woa/wa/DirectAction/student?" style="color: #ffffff;">myFile</a></button>
+
+                <button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://yorkulions.ca/index.aspx" style="color: #ffffff;">YorkU Lions</a></button>
+              </ul>
+          </div>
+
+          <div class="content-section">
+            <h3 style="text-align: center;"> YorkU Socials </h3>
+              <ul class="list-group nav-helpful-link">
+
+              	<button type="button" class="btn btn-fb btn-small btn-danger">
+              		<a href="https://www.facebook.com/yorkuniversity" style="color: 
+              		#ffffff;">Facebook</a></button>
+
+              	<button type="button" class="btn btn-fb btn-danger">
+              		<a href="https://discordapp.com/invite/HGECt3t" style="color: #ffffff;">Discord</a></button>
+
+              	<button type="button" class="btn btn-fb btn-danger">
+              		<a href="https://www.reddit.com/r/yorku/" style="color: #ffffff;">Reddit</a></button>
+
+              	<button type="button" class="btn btn-fb btn-danger">
+              		<a href="https://events.yorku.ca/" style="color: #ffffff;">Events</a></button>
+
+              	<button type="button" class="btn btn-fb btn-danger">
+              		<a href="https://yorku.campuslabs.ca/engage/" style="color: #ffffff;">Club</a></button>
+
+              </ul>
+          </div>
+
+        </div>
+	  </div>
+	</main>
+
+	<footer class="footer bg-steel">
+		<aside id="bottom">
+	<div class="inside">
+		<section class="quarter">
+<!--			<h2>Contact Us</h2>-->
+			<address>
+				4700 Keele Street
+				Toronto, ON
+				Canada M3J 1P3
+				(416) 736-2100 
+				<a style="color: #ffffff" href="mailto:info@yorku.ca">Email: info@yorku.ca</a>
+			</address>
+	
+	</div>
+</aside>
+	</footer>
+
+	
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
